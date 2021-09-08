@@ -1,0 +1,239 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://images/white.png" type="Texture" id=1]
+[ext_resource path="res://images/self_made_cornel_box_noise.png" type="Texture" id=2]
+[ext_resource path="res://KNN_shader.shader" type="Shader" id=3]
+[ext_resource path="res://image_switch.gd" type="Script" id=4]
+[ext_resource path="res://set_params.gd" type="Script" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/size = 14.0
+shader_param/r = 21.739
+shader_param/h = 0.062
+shader_param/lerpvalue = 0.152
+shader_param/weight_treshold = 0.707
+shader_param/lerp_treshold = 0.001
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="picture" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="HSplitContainer"]
+margin_right = 6.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="HSplitContainer/Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.0
+color = Color( 0, 0, 0, 0.372549 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer"]
+material = SubResource( 1 )
+margin_left = 18.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 1, 0 )
+texture = ExtResource( 1 )
+stretch_mode = 7
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="."]
+margin_left = 0.667419
+margin_right = 225.667
+margin_bottom = 20.0
+text = "path traced Cornell box"
+items = [ "path traced Cornell box", null, false, 0, null, "Image from paper", null, false, 1, null, "own photo", null, false, 2, null ]
+selected = 0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="OptionButton"]
+margin_left = 120.0
+margin_top = 97.0
+margin_right = 907.0
+margin_bottom = 506.0
+window_title = "Open a File"
+mode = 0
+access = 2
+current_dir = "/firas/Documents/projects/Godot/nlm denoise"
+current_path = "/firas/Documents/projects/Godot/nlm denoise/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -217.0
+margin_top = -145.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer2" type="GridContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 210.0
+margin_bottom = 138.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="size" type="Label" parent="PanelContainer/GridContainer2"]
+margin_top = 5.0
+margin_right = 125.0
+margin_bottom = 19.0
+text = "Size                     "
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="size_box" type="SpinBox" parent="PanelContainer/GridContainer2"]
+margin_left = 129.0
+margin_right = 203.0
+margin_bottom = 24.0
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H" type="Label" parent="PanelContainer/GridContainer2"]
+margin_top = 29.0
+margin_right = 125.0
+margin_bottom = 43.0
+text = "H                  "
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H_box" type="HSlider" parent="PanelContainer/GridContainer2"]
+margin_left = 129.0
+margin_top = 28.0
+margin_right = 203.0
+margin_bottom = 44.0
+min_value = 0.001
+max_value = 1.0
+step = 0.001
+value = 0.001
+
+[node name="R" type="Label" parent="PanelContainer/GridContainer2"]
+margin_top = 49.0
+margin_right = 125.0
+margin_bottom = 63.0
+text = "R                   "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="R_box" type="HSlider" parent="PanelContainer/GridContainer2"]
+margin_left = 129.0
+margin_top = 48.0
+margin_right = 203.0
+margin_bottom = 64.0
+min_value = 0.001
+step = 0.001
+value = 0.001
+
+[node name="LERP VALUE" type="Label" parent="PanelContainer/GridContainer2"]
+margin_top = 69.0
+margin_right = 125.0
+margin_bottom = 83.0
+text = "lerp value        "
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LERP VALUE_box" type="HSlider" parent="PanelContainer/GridContainer2"]
+margin_left = 129.0
+margin_top = 68.0
+margin_right = 203.0
+margin_bottom = 84.0
+max_value = 1.0
+step = 0.001
+
+[node name="WEIGHT_TRESHOLD" type="Label" parent="PanelContainer/GridContainer2"]
+margin_top = 89.0
+margin_right = 125.0
+margin_bottom = 103.0
+text = "WEIGHT_TRESHOLD"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WEIGHT_TRESHOLD_box" type="HSlider" parent="PanelContainer/GridContainer2"]
+margin_left = 129.0
+margin_top = 88.0
+margin_right = 203.0
+margin_bottom = 104.0
+min_value = 0.66
+max_value = 0.95
+step = 0.001
+value = 0.66
+
+[node name="LERP_TRESHOLD" type="Label" parent="PanelContainer/GridContainer2"]
+margin_top = 109.0
+margin_right = 125.0
+margin_bottom = 123.0
+text = "WEIGHT_TRESHOLD"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LERP_TRESHOLD_box" type="HSlider" parent="PanelContainer/GridContainer2"]
+margin_left = 129.0
+margin_top = 108.0
+margin_right = 203.0
+margin_bottom = 124.0
+min_value = 0.001
+max_value = 1.0
+step = 0.001
+value = 0.001
+
+[connection signal="value_changed" from="PanelContainer/GridContainer2/size_box" to="HSplitContainer/TextureRect" method="_on_size_box_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer2/H_box" to="HSplitContainer/TextureRect" method="_on_H_box_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer2/R_box" to="HSplitContainer/TextureRect" method="_on_R_box_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer2/LERP VALUE_box" to="HSplitContainer/TextureRect" method="_on_LERP_VALUE_box_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer2/WEIGHT_TRESHOLD_box" to="HSplitContainer/TextureRect" method="_on_WEIGHT_TRESHOLD_box_value_changed"]
+[connection signal="value_changed" from="PanelContainer/GridContainer2/LERP_TRESHOLD_box" to="HSplitContainer/TextureRect" method="_on_LERP_TRESHOLD_box_value_changed"]
