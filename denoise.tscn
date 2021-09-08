@@ -215,7 +215,7 @@ value = 0.66
 margin_top = 109.0
 margin_right = 125.0
 margin_bottom = 123.0
-text = "WEIGHT_TRESHOLD"
+text = "LERP_TRESHOLD"
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
